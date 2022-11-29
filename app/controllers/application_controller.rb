@@ -27,7 +27,7 @@ class ApplicationController < Sinatra::Base
       inch_width: params[:inchWidth],
       image_url: params[:imageUrl]
     )
-    artwork.to_json
+    artwork.to_json(include: :reviews)
   end
 
   delete '/artworks/:id' do
