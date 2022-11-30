@@ -16,7 +16,7 @@ class ApplicationController < Sinatra::Base
     artwork = Artwork.find(params[:id])
     artwork.to_json(include: :reviews)
   end
-
+ 
   post '/artworks' do
     artwork = Artwork.create(
       name: params[:name],
@@ -37,11 +37,12 @@ class ApplicationController < Sinatra::Base
     artwork.to_json(include: :reviews)
   end
 
-  post '/artworks/:id' do
-    review = Review.create(
+  # post '/artworks/:id' do
+  post '/artworks/:artwork_id/reviews' do
+    artwork = Artwork.find(params[:artwork_id])
+    review = artwork.reviews.create(
       author: params[:author],
-      body: params[:body],
-      artwork_id: params[:id]
+      body: params[:body]
     )
     review.to_json
   end
